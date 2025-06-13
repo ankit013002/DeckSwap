@@ -1,12 +1,23 @@
-import { type Config } from "drizzle-kit";
-
+// drizzle.config.ts
+import "dotenv/config";
+import { defineConfig } from "drizzle-kit";
 import { env } from "~/env";
 
-export default {
+console.log("Drizzle will use →", process.env.SINGLESTORE_ACCESS); // temporary sanity-check
+
+export default defineConfig({
   schema: "./src/server/db/schema.ts",
-  dialect: "sqlite",
+  out: "./src/server/migrations",
+  dialect: "singlestore",
   dbCredentials: {
-    url: env.DATABASE_URL,
+    host: env.SINGLESTORE_HOST,
+    port: parseInt(env.SINGLESTORE_PORT),
+    user: env.SINGLESTORE_USER,
+    password: env.SINGLESTORE_PASSWORD,
+    database: env.SINGLESTORE_DATABASE,
+    ssl: {},
   },
   tablesFilter: ["DeckSwap_*"],
-} satisfies Config;
+  verbose: true,
+  strict: true,
+});
