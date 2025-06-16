@@ -1,9 +1,6 @@
-// drizzle.config.ts
 import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
 import { env } from "~/env";
-
-console.log("Drizzle will use →", process.env.SINGLESTORE_ACCESS); // temporary sanity-check
 
 export default defineConfig({
   schema: "./src/server/db/schema.ts",
