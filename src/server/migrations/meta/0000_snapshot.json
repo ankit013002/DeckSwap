@@ -1,7 +1,7 @@
 {
   "version": "1",
   "dialect": "singlestore",
-  "id": "a5dab6a3-426f-4712-afb9-b31a92c1db61",
+  "id": "c67bc376-24bb-4cb0-bfc5-26e807972d47",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "items_table": {
@@ -51,7 +51,7 @@
         },
         "image_url": {
           "name": "image_url",
-          "type": "varchar(255)",
+          "type": "longtext",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -94,23 +94,23 @@
           "notNull": true,
           "autoincrement": true
         },
+        "clerk_user_id": {
+          "name": "clerk_user_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "name": {
           "name": "name",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "email": {
           "name": "email",
           "type": "varchar(150)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "password_hash": {
-          "name": "password_hash",
-          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

@@ -1,6 +1,14 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 import { Geist } from "next/font/google";
 import Navbar from "~/components/ui/navbar";
 
@@ -19,16 +27,18 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
-      <body>
-        <Navbar cartCount={3} />
-        {children}
-        <footer className="flex justify-center bg-transparent py-4">
-          <p className="text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} DeckSwap. All rights reserved.
-          </p>
-        </footer>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={`${geist.variable}`}>
+        <body>
+          <Navbar cartCount={3} />
+          {children}
+          <footer className="flex justify-center bg-transparent py-4">
+            <p className="text-sm text-gray-500">
+              &copy; {new Date().getFullYear()} DeckSwap. All rights reserved.
+            </p>
+          </footer>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

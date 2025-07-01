@@ -1,14 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, CirclePlus } from "lucide-react";
 import Image from "next/image";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
+import { useEffect } from "react";
 
 interface NavbarProps {
   cartCount?: number;
 }
 
 export default function Navbar({ cartCount = 0 }: NavbarProps) {
+  const { user, isLoaded } = useUser();
+
+  useEffect(() => {
+    if (isLoaded && user) {
+      fetch("/api/createUser", { method: "POST" }).catch((error) =>
+        console.error(`Error: ${error}`),
+      );
+    }
+  }, [isLoaded, user]);
+
   return (
     <nav className="bg-white shadow">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -51,6 +70,12 @@ export default function Navbar({ cartCount = 0 }: NavbarProps) {
 
         <div className="flex items-center justify-around gap-5">
           <Link
+            href="/createPosting"
+            className="relative text-gray-900 hover:text-gray-700"
+          >
+            <CirclePlus size={24} />
+          </Link>
+          <Link
             href="/cart"
             className="relative text-gray-900 hover:text-gray-700"
           >
@@ -62,15 +87,17 @@ export default function Navbar({ cartCount = 0 }: NavbarProps) {
             )}
           </Link>
 
-          <Link href="profile" className="h-10 w-10 rounded-full bg-red-500">
-            <Image
-              className="h-full w-full rounded-full"
-              src="/images/blue-eyes.jpg"
-              alt="Profile Image"
-              width={100}
-              height={100}
-            />
-          </Link>
+          <SignedOut>
+            <SignInButton />
+            <SignUpButton>
+              <button className="h-10 cursor-pointer rounded-full bg-[#6c47ff] px-4 text-sm font-medium text-white sm:h-12 sm:px-5 sm:text-base">
+                Sign Up
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </div>
     </nav>

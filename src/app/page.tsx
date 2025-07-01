@@ -11,14 +11,39 @@ import { Badge } from "~/components/ui/badge";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { mockUsers, mockItems } from "~/lib/mock-data";
+import { useEffect, useState } from "react";
+
+interface ItemType {
+  id: string;
+  userId: string;
+  title: string;
+  description: string;
+  category: string;
+  condition: string;
+  imageUrl: string;
+  soldBy: string;
+}
 
 export default function HomePage() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [items, setItems] = useState<ItemType[]>([]);
+
+  useEffect(() => {
+    fetch("/api/fetchPosts")
+      .then((response) => response.json())
+      .then((data: ItemType[]) => setItems(data))
+      .catch((error) => console.error(`Error fetching data: ${error}`))
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  if (isLoading) return <p>Loading…</p>;
+
   return (
     <main className="min-h-screen p-8">
       <h1 className="mb-6 text-3xl font-bold">Card Market</h1>
 
       <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5">
-        {mockItems.map((item) => {
+        {items.map((item) => {
           const seller = mockUsers.find((u) => u.id === item.userId);
           return (
             <motion.div
@@ -32,13 +57,15 @@ export default function HomePage() {
                   <Badge variant="outline">{item.condition}</Badge>
                 </CardHeader>
                 <CardContent className="flex flex-grow flex-col items-center">
-                  <Image
-                    src={item.imageUrl}
-                    alt={item.title}
-                    width={300}
-                    height={300}
-                    className="mb-4 w-full rounded-md object-cover"
-                  />
+                  {item?.imageUrl && (
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.title}
+                      width={300}
+                      height={300}
+                      className="mb-4 w-full rounded-md object-cover"
+                    />
+                  )}
                   <h2 className="mb-2 text-xl font-medium text-gray-900">
                     {item.title}
                   </h2>
@@ -48,7 +75,7 @@ export default function HomePage() {
                 </CardContent>
                 <CardFooter className="flex items-center justify-between">
                   <span className="text-sm text-gray-500">
-                    Seller: {seller?.name ?? "Unknown"}
+                    Seller: {item.soldBy ?? "Unknown"}
                   </span>
                   <Button>Add to Cart</Button>
                 </CardFooter>
