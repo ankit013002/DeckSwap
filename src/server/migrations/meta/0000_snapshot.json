@@ -1,7 +1,7 @@
 {
   "version": "1",
   "dialect": "singlestore",
-  "id": "c67bc376-24bb-4cb0-bfc5-26e807972d47",
+  "id": "437337f5-5710-4314-8312-132e19863ae3",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "items_table": {
@@ -24,6 +24,13 @@
         "title": {
           "name": "title",
           "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "price": {
+          "name": "price",
+          "type": "decimal(10,2)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

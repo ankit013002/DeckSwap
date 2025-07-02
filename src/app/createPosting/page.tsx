@@ -21,18 +21,22 @@ import {
   SelectItem,
 } from "~/components/ui/select";
 import Image from "next/image";
+import { Alert, AlertTitle } from "~/components/ui/alert";
+import { PopcornIcon } from "lucide-react";
 
 export default function CreatePostingPage() {
   const router = useRouter();
   const [form, setForm] = useState({
     title: "",
     description: "",
+    price: "",
     category: "",
     condition: "",
     imageUrl: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [image, setimage] = useState("");
+  const [priceError, setPriceError] = useState(false);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -55,6 +59,22 @@ export default function CreatePostingPage() {
       setimage(dataUrl);
     };
     reader.readAsDataURL(file);
+  }
+
+  function handlePriceChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    const regEx = /^[1-9]\d*(?:\.\d{2})?$/;
+    if (!regEx.test(value)) {
+      setPriceError(true);
+    } else {
+      setPriceError(false);
+    }
+    setForm((f) => {
+      return {
+        ...f,
+        price: e.target.value,
+      };
+    });
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -89,9 +109,27 @@ export default function CreatePostingPage() {
                 name="title"
                 value={form.title}
                 onChange={handleChange}
-                placeholder="Card name"
+                placeholder="Item name"
                 required
               />
+            </div>
+            <div>
+              <Label htmlFor="price">Price</Label>
+              <Input
+                id="price"
+                name="price"
+                value={form.price}
+                onChange={handlePriceChange}
+                placeholder="Price of item ($23.45)"
+                required
+              />
+              {priceError && (
+                <div className="justify-items-center">
+                  <div className="text-red-700">
+                    Please only include digits and/or decimals (xx or xx.yy)
+                  </div>
+                </div>
+              )}
             </div>
             <div>
               <Label htmlFor="description">Description</Label>

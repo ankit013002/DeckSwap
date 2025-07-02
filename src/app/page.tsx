@@ -17,6 +17,7 @@ interface ItemType {
   id: string;
   userId: string;
   title: string;
+  price: string;
   description: string;
   category: string;
   condition: string;
@@ -74,9 +75,14 @@ export default function HomePage() {
                   </p>
                 </CardContent>
                 <CardFooter className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">
-                    Seller: {item.soldBy ?? "Unknown"}
-                  </span>
+                  <div className="flex flex-col">
+                    <span className="text-sm text-gray-500">
+                      Price: ${item.price ?? "Unknown"}
+                    </span>
+                    <span className="text-sm text-gray-500">
+                      Seller: {item.soldBy ?? "Unknown"}
+                    </span>
+                  </div>
                   <Button>Add to Cart</Button>
                 </CardFooter>
               </Card>

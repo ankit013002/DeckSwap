@@ -22,9 +22,10 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { title, description, category, condition, imageUrl } =
+    const { title, description, category, condition, imageUrl, price } =
       (await request.json()) as {
         title: string;
+        price: string;
         description: string;
         category: string;
         condition: string;
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
     const result = await db.insert(items).values({
       userId: currUser.id,
       title,
+      price,
       description,
       category,
       condition,

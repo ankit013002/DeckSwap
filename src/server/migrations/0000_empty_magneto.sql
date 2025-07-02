@@ -2,6 +2,7 @@ CREATE TABLE `items_table` (
 	`id` bigint AUTO_INCREMENT NOT NULL,
 	`user_id` bigint NOT NULL,
 	`title` varchar(100) NOT NULL,
+	`price` decimal(10,2) NOT NULL,
 	`description` text,
 	`category` varchar(30) NOT NULL,
 	`condition` varchar(30),
