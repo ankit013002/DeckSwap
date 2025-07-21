@@ -8,7 +8,7 @@ import {
   singlestoreTable,
   longtext,
 } from "drizzle-orm/singlestore-core";
-import { relations } from "drizzle-orm";
+import { relations, type InferModel } from "drizzle-orm";
 
 export const users = singlestoreTable("users_table", {
   id: bigint("id", { mode: "bigint" }).primaryKey().autoincrement(),
@@ -23,9 +23,16 @@ export const items = singlestoreTable("items_table", {
   userId: bigint("user_id", { mode: "bigint" }).notNull(),
   title: varchar("title", { length: 100 }).notNull(),
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  willingToTrade: varchar("willing_to_trade", { length: 3 })
+    .notNull()
+    .default("No"),
+  tradingFor: varchar("trading_for", { length: 255 }),
   description: text("description"),
   category: varchar("category", { length: 30 }).notNull(),
   condition: varchar("condition", { length: 30 }),
+  usedConditionDescription: text("used_condition_description"),
+  mintCompany: varchar("mint_company", { length: 10 }),
+  mintGrade: varchar("mint_grade", { length: 20 }),
   imageUrl: longtext("image_url"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -40,3 +47,6 @@ export const itemsRelations = relations(items, ({ one }) => ({
     references: [users.id],
   }),
 }));
+
+export type ItemType = InferModel<typeof items>;
+export type NewItem = InferModel<typeof items, "insert">;

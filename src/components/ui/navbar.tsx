@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ShoppingCart, CirclePlus } from "lucide-react";
 import Image from "next/image";
 import {
+  RedirectToSignIn,
   SignedIn,
   SignedOut,
   SignInButton,
@@ -69,12 +70,25 @@ export default function Navbar({ cartCount = 0 }: NavbarProps) {
         </ul>
 
         <div className="flex items-center justify-around gap-5">
-          <Link
-            href="/createPosting"
-            className="relative text-gray-900 hover:text-gray-700"
-          >
-            <CirclePlus size={24} />
-          </Link>
+          <SignedOut>
+            <SignInButton
+              forceRedirectUrl="/createPosting"
+              fallbackRedirectUrl="/createPosting"
+              signUpFallbackRedirectUrl="/createPosting"
+            >
+              <button className="relative text-gray-900 hover:text-gray-700">
+                <CirclePlus size={24} />
+              </button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <Link
+              href="/createPosting"
+              className="relative text-gray-900 hover:text-gray-700"
+            >
+              <CirclePlus size={24} />
+            </Link>
+          </SignedIn>
           <Link
             href="/cart"
             className="relative text-gray-900 hover:text-gray-700"

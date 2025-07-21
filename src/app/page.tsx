@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { mockUsers, mockItems } from "~/lib/mock-data";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface ItemType {
   id: string;
@@ -52,40 +53,42 @@ export default function HomePage() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Card className="flex h-full flex-col">
-                <CardHeader className="flex items-center space-x-2">
-                  <Badge variant="secondary">{item.category}</Badge>
-                  <Badge variant="outline">{item.condition}</Badge>
-                </CardHeader>
-                <CardContent className="flex flex-grow flex-col items-center">
-                  {item?.imageUrl && (
-                    <Image
-                      src={item.imageUrl}
-                      alt={item.title}
-                      width={300}
-                      height={300}
-                      className="mb-4 w-full rounded-md object-cover"
-                    />
-                  )}
-                  <h2 className="mb-2 text-xl font-medium text-gray-900">
-                    {item.title}
-                  </h2>
-                  <p className="text-center text-sm text-gray-600">
-                    {item.description}
-                  </p>
-                </CardContent>
-                <CardFooter className="flex items-center justify-between">
-                  <div className="flex flex-col">
-                    <span className="text-sm text-gray-500">
-                      Price: ${item.price ?? "Unknown"}
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Seller: {item.soldBy ?? "Unknown"}
-                    </span>
-                  </div>
-                  <Button>Add to Cart</Button>
-                </CardFooter>
-              </Card>
+              <Link href={`/productPage/${item.id}`}>
+                <Card className="flex h-full flex-col">
+                  <CardHeader className="flex items-center space-x-2">
+                    <Badge variant="secondary">{item.category}</Badge>
+                    <Badge variant="outline">{item.condition}</Badge>
+                  </CardHeader>
+                  <CardContent className="flex flex-grow flex-col items-center">
+                    {item?.imageUrl && (
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.title}
+                        width={300}
+                        height={300}
+                        className="mb-4 w-full rounded-md object-cover"
+                      />
+                    )}
+                    <h2 className="mb-2 text-xl font-medium text-gray-900">
+                      {item.title}
+                    </h2>
+                    <p className="text-center text-sm text-gray-600">
+                      {item.description}
+                    </p>
+                  </CardContent>
+                  <CardFooter className="flex items-center justify-between">
+                    <div className="flex flex-col">
+                      <span className="text-sm text-gray-500">
+                        Price: ${item.price ?? "Unknown"}
+                      </span>
+                      <span className="text-sm text-gray-500">
+                        Seller: {item.soldBy ?? "Unknown"}
+                      </span>
+                    </div>
+                    <Button>Add to Cart</Button>
+                  </CardFooter>
+                </Card>
+              </Link>
             </motion.div>
           );
         })}
