@@ -306,7 +306,7 @@ export default function CreatePostingPage() {
                 <Label htmlFor="usedConditionDescription">Description</Label>
                 <Textarea
                   id="usedConditionDescription"
-                  name="descripusedConditionDescriptiontion"
+                  name="usedConditionDescription"
                   value={form.usedConditionDescription}
                   onChange={handleChange}
                   placeholder="Describe anything specific regarding your used card that would be useful to a buyer…"

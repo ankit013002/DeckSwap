@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { GetProduct } from "~/server/getProduct";
@@ -37,8 +38,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <p className="text-3xl text-green-600">${product.price}</p>
 
           <div className="flex space-x-4">
-            <Button>Add to Cart</Button>
-            <Button variant="outline">Offer Trade</Button>
+            <Link className="btn" href="/">
+              Add to Cart
+            </Link>
+            <Link className="btn" href={`/trade/${product.id}`}>
+              Offer Trade
+            </Link>
           </div>
 
           <Tabs defaultValue="details" className="mt-4">
