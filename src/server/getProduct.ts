@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "./db";
 import { items, type ItemType } from "./db/schema";
+import { bigint } from "drizzle-orm/gel-core";
 
 export async function GetProduct(itemId: bigint) {
   const item: ItemType[] = await db

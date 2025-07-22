@@ -10,7 +10,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { Geist } from "next/font/google";
-import Navbar from "~/components/ui/navbar";
+import Navbar from "~/components/navbar";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
