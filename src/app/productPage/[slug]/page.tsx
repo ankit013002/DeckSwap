@@ -103,11 +103,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </TabsList>
 
             <TabsContent value="purchase" className="pt-4">
-              <ItemDetailsPurchase />
+              <ItemDetailsPurchase product={product} />
             </TabsContent>
 
             <TabsContent value="trade" className="pt-4">
-              <ItemDetailsTrade />
+              <ItemDetailsTrade product={product} />
             </TabsContent>
           </Tabs>
         </section>

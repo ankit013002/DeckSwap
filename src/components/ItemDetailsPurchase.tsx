@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import type { ItemType } from "~/server/db/schema";
 
@@ -6,9 +8,26 @@ interface ItemDetailsPurchaseProps {
 }
 
 const ItemDetailsPurchase = ({ product }: ItemDetailsPurchaseProps) => {
+  if (!product) {
+    return <p>Product not found</p>;
+  }
+
+  const handleAddToCart = async () => {
+    async function addToCart() {
+      const response = await fetch("/api/addToCart", {
+        method: "POST",
+        body: JSON.stringify({ productId: product.id.toString() }),
+      });
+      console.log("Product doesn't exist");
+    }
+    await addToCart();
+  };
+
   return (
     <div>
-      <button className="btn">Add to Cart</button>
+      <button onClick={() => handleAddToCart()} className="btn">
+        Add to Cart
+      </button>
     </div>
   );
 };
