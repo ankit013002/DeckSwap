@@ -91,7 +91,7 @@ export default function CreatePostingPage() {
         body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error("Failed to create posting");
-      router.push("/"); // go back to home or wherever
+      router.push("/");
     } catch (err) {
       console.error(err);
       setIsLoading(false);
@@ -136,7 +136,7 @@ export default function CreatePostingPage() {
               )}
             </div>
             <div>
-              <Label htmlFor="tradingFor">Willing to Trade</Label>
+              <Label htmlFor="willingToTrade">Willing to Trade</Label>
               <Select
                 onValueChange={(v: string) => handleSelect("willingToTrade", v)}
                 value={form.willingToTrade}

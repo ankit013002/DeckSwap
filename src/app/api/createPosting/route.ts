@@ -22,23 +22,44 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { title, description, category, condition, imageUrl, price } =
-      (await request.json()) as {
-        title: string;
-        price: string;
-        description: string;
-        category: string;
-        condition: string;
-        imageUrl: string;
-      };
+    const {
+      title,
+      description,
+      price,
+      willingToTrade,
+      tradingFor,
+      category,
+      mintCompany,
+      mintGrade,
+      condition,
+      usedConditionDescription,
+      imageUrl,
+    } = (await request.json()) as {
+      title: string;
+      description: string;
+      price: string;
+      willingToTrade: string;
+      tradingFor: string;
+      category: string;
+      mintCompany: string;
+      mintGrade: string;
+      condition: string;
+      usedConditionDescription: string;
+      imageUrl: string;
+    };
 
     const result = await db.insert(items).values({
       userId: currUser.id,
       title,
-      price,
       description,
+      price,
+      willingToTrade,
+      tradingFor,
       category,
+      mintCompany,
+      mintGrade,
       condition,
+      usedConditionDescription,
       imageUrl,
     });
     return NextResponse.json({ success: true });

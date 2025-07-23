@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import ItemDetailsPurchase from "~/components/ItemDetailsPurchase";
+import ItemDetailsTrade from "~/components/ItemDetailsTrade";
 import { Button } from "~/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import type { ItemType } from "~/server/db/schema";
 import { GetProduct } from "~/server/getProduct";
 
 interface ProductPageProps {
@@ -35,22 +38,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
         {/* Right: Product Info */}
         <section className="flex flex-col space-y-6 p-6 lg:w-1/2">
           <h1 className="text-4xl font-semibold">{product.title}</h1>
+          <p>{product.description ?? "No description provided."}</p>
           <p className="text-3xl text-green-600">${product.price}</p>
-
-          <div className="flex space-x-4">
-            <Link className="btn" href="/">
-              Add to Cart
-            </Link>
-            <Link className="btn" href={`/trade/${product.id}`}>
-              Offer Trade
-            </Link>
-          </div>
 
           <Tabs defaultValue="details" className="mt-4">
             <TabsList>
               <TabsTrigger value="details">Details</TabsTrigger>
-              <TabsTrigger value="description">Description</TabsTrigger>
               <TabsTrigger value="trading">Trading</TabsTrigger>
+              {product.mintCompany && (
+                <TabsTrigger value="mint">Mint</TabsTrigger>
+              )}
             </TabsList>
 
             <TabsContent value="details" className="pt-4">
@@ -76,10 +73,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </ul>
             </TabsContent>
 
-            <TabsContent value="description" className="pt-4">
-              <p>{product.description ?? "No description provided."}</p>
-            </TabsContent>
-
             <TabsContent value="trading" className="pt-4">
               {product.willingToTrade === "Yes" ? (
                 <p>
@@ -88,6 +81,33 @@ export default async function ProductPage({ params }: ProductPageProps) {
               ) : (
                 <p>Not open to trades</p>
               )}
+            </TabsContent>
+
+            {product.mintCompany && (
+              <TabsContent value="mint" className="pt-4">
+                {product.willingToTrade === "Yes" ? (
+                  <p>
+                    Open to trade for: <em>{product.tradingFor}</em>
+                  </p>
+                ) : (
+                  <p>Not open to trades</p>
+                )}
+              </TabsContent>
+            )}
+          </Tabs>
+
+          <Tabs defaultValue="purchase" className="mt-4">
+            <TabsList>
+              <TabsTrigger value="purchase">Purchase</TabsTrigger>
+              <TabsTrigger value="trade">Offer Trade</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="purchase" className="pt-4">
+              <ItemDetailsPurchase />
+            </TabsContent>
+
+            <TabsContent value="trade" className="pt-4">
+              <ItemDetailsTrade />
             </TabsContent>
           </Tabs>
         </section>

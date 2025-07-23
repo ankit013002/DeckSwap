@@ -1,3 +1,19 @@
+CREATE TABLE `cart_items_table` (
+	`id` bigint AUTO_INCREMENT NOT NULL,
+	`cart_id` bigint NOT NULL,
+	`item_id` bigint NOT NULL,
+	`quantity` int NOT NULL DEFAULT 1,
+	`added_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `cart_items_table_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `carts_table` (
+	`id` bigint AUTO_INCREMENT NOT NULL,
+	`user_id` bigint NOT NULL,
+	`created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `carts_table_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
 CREATE TABLE `items_table` (
 	`id` bigint AUTO_INCREMENT NOT NULL,
 	`user_id` bigint NOT NULL,

@@ -38,6 +38,39 @@ export const items = singlestoreTable("items_table", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const cart = singlestoreTable("carts_table", {
+  id: bigint("id", { mode: "bigint" }).primaryKey().autoincrement(),
+  userId: bigint("user_id", { mode: "bigint" }).notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const cartItems = singlestoreTable("cart_items_table", {
+  id: bigint("id", { mode: "bigint" }).primaryKey().autoincrement(),
+  cartId: bigint("cart_id", { mode: "bigint" }).notNull(),
+  itemId: bigint("item_id", { mode: "bigint" }).notNull(),
+  quantity: int("quantity").notNull().default(1),
+  addedAt: timestamp("added_at").defaultNow().notNull(),
+});
+
+export const cartRelations = relations(cart, ({ one, many }) => ({
+  user: one(users, {
+    fields: [cart.userId],
+    references: [users.id],
+  }),
+  cartItems: many(cartItems),
+}));
+
+export const cartItemsRelations = relations(cartItems, ({ one }) => ({
+  cart: one(cart, {
+    fields: [cartItems.cartId],
+    references: [cart.id],
+  }),
+  item: one(items, {
+    fields: [cartItems.itemId],
+    references: [items.id],
+  }),
+}));
+
 export const usersRelations = relations(users, ({ many }) => ({
   items: many(items),
 }));
@@ -50,3 +83,7 @@ export const itemsRelations = relations(items, ({ one }) => ({
 
 export type ItemType = InferModel<typeof items>;
 export type NewItem = InferModel<typeof items, "insert">;
+export type Cart = InferModel<typeof cart>;
+export type NewCart = InferModel<typeof cart, "insert">;
+export type CartItem = InferModel<typeof cartItems>;
+export type NewCartItem = InferModel<typeof cartItems, "insert">;
