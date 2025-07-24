@@ -18,7 +18,7 @@ const ItemDetailsPurchase = ({ product }: ItemDetailsPurchaseProps) => {
         method: "POST",
         body: JSON.stringify({ productId: product.id.toString() }),
       });
-      console.log("Product doesn't exist");
+      console.log("Response: ", response);
     }
     await addToCart();
   };

@@ -43,10 +43,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           <Tabs defaultValue="details" className="mt-4">
             <TabsList>
-              <TabsTrigger value="details">Details</TabsTrigger>
-              <TabsTrigger value="trading">Trading</TabsTrigger>
+              <TabsTrigger value="details">
+                <div className="cursor-pointer">Details</div>
+              </TabsTrigger>
+              <TabsTrigger value="trading">
+                <div className="cursor-pointer">Trading</div>
+              </TabsTrigger>
               {product.mintCompany && (
-                <TabsTrigger value="mint">Mint</TabsTrigger>
+                <TabsTrigger value="mint">
+                  <div className="cursor-pointer">Mint</div>
+                </TabsTrigger>
               )}
             </TabsList>
 
@@ -98,8 +104,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           <Tabs defaultValue="purchase" className="mt-4">
             <TabsList>
-              <TabsTrigger value="purchase">Purchase</TabsTrigger>
-              <TabsTrigger value="trade">Offer Trade</TabsTrigger>
+              <TabsTrigger value="purchase">
+                <div className="cursor-pointer font-bold">Purchase</div>
+              </TabsTrigger>
+              <TabsTrigger value="trade">
+                <div className="cursor-pointer font-bold">Offer Trade</div>
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="purchase" className="pt-4">

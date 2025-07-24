@@ -6,7 +6,7 @@ export async function POST(request: Request) {
 
   console.log("got product:", productId);
 
-  await PostCartItem();
+  const response = await PostCartItem(productId);
 
   return NextResponse.json({ status: "ok" });
 }

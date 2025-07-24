@@ -81,6 +81,8 @@ export const itemsRelations = relations(items, ({ one }) => ({
   }),
 }));
 
+export type UserType = InferModel<typeof users>;
+export type NewUser = InferModel<typeof users, "insert">;
 export type ItemType = InferModel<typeof items>;
 export type NewItem = InferModel<typeof items, "insert">;
 export type Cart = InferModel<typeof cart>;
