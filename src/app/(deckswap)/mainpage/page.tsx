@@ -13,6 +13,7 @@ import Image from "next/image";
 import { mockUsers, mockItems } from "~/lib/mock-data";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 interface ItemType {
   id: string;
@@ -26,16 +27,17 @@ interface ItemType {
   soldBy: string;
 }
 
-interface HomePageProps {
-  query: string;
-}
+export default function HomePage() {
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query");
 
-export default function HomePage({ query }: HomePageProps) {
+  console.log(`PARAMS: ${query}`);
+
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState<ItemType[]>([]);
 
   useEffect(() => {
-    fetch("/api/fetchPosts")
+    fetch(`/api/fetchPosts?query=${encodeURIComponent(query ?? "")}`)
       .then((response) => response.json())
       .then((data: ItemType[]) => setItems(data))
       .catch((error) => console.error(`Error fetching data: ${error}`))

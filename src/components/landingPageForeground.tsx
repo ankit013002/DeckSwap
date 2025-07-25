@@ -7,7 +7,7 @@ export function LandingPageForeground() {
   const [query, setQuery] = useState("");
 
   const submitRequest = () => {
-    redirect(`/mainpage/${query}`);
+    redirect(`/mainpage?query=${query}`);
   };
 
   return (

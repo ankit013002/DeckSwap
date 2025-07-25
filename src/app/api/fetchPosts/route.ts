@@ -1,9 +1,12 @@
-import { eq } from "drizzle-orm";
+import { eq, like } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { db } from "~/server/db";
 import { items, users } from "~/server/db/schema";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const query = searchParams.get("query")?.toLowerCase() ?? "";
+  console.log(query);
   try {
     const rawData = await db
       .select({
@@ -18,7 +21,8 @@ export async function GET() {
         soldBy: users.name,
       })
       .from(items)
-      .leftJoin(users, eq(items.userId, users.id));
+      .leftJoin(users, eq(items.userId, users.id))
+      .where(like(items.title, `%${query}%`));
     console.log(rawData);
 
     const data = await Promise.all(
