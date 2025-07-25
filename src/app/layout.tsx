@@ -29,15 +29,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={`${geist.variable}`}>
-        <body>
-          <Navbar cartCount={3} />
-          {children}
-          <footer className="flex justify-center bg-transparent py-4">
-            <p className="text-sm text-gray-500">
-              &copy; {new Date().getFullYear()} DeckSwap. All rights reserved.
-            </p>
-          </footer>
-        </body>
+        <body>{children}</body>
       </html>
     </ClerkProvider>
   );
