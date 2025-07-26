@@ -48,7 +48,10 @@ export default function Navbar({ cartCount = 0 }: NavbarProps) {
 
         <ul className="hidden space-x-6 md:flex">
           <li>
-            <Link href="/cards" className="hover:text-blue-500">
+            <Link
+              href="/mainpage?itemType=card"
+              className="hover:text-blue-500"
+            >
               Cards
             </Link>
           </li>

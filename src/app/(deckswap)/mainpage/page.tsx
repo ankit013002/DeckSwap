@@ -30,6 +30,7 @@ interface ItemType {
 export default function HomePage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
+  const itemType = searchParams.get("itemType");
 
   console.log(`PARAMS: ${query}`);
 
@@ -37,11 +38,19 @@ export default function HomePage() {
   const [items, setItems] = useState<ItemType[]>([]);
 
   useEffect(() => {
-    fetch(`/api/fetchPosts?query=${encodeURIComponent(query ?? "")}`)
-      .then((response) => response.json())
-      .then((data: ItemType[]) => setItems(data))
-      .catch((error) => console.error(`Error fetching data: ${error}`))
-      .finally(() => setIsLoading(false));
+    if (query) {
+      fetch(`/api/fetchPosts?query=${encodeURIComponent(query ?? "")}`)
+        .then((response) => response.json())
+        .then((data: ItemType[]) => setItems(data))
+        .catch((error) => console.error(`Error fetching data: ${error}`))
+        .finally(() => setIsLoading(false));
+    } else {
+      fetch(`/api/fetchPosts?itemType=${encodeURIComponent(itemType ?? "")}`)
+        .then((response) => response.json())
+        .then((data: ItemType[]) => setItems(data))
+        .catch((error) => console.error(`Error fetching data: ${error}`))
+        .finally(() => setIsLoading(false));
+    }
   }, []);
 
   if (isLoading) return <p>Loading…</p>;
