@@ -1,9 +1,46 @@
 {
   "version": "1",
   "dialect": "singlestore",
-  "id": "7f077611-369f-435f-a582-2c8bf818748e",
+  "id": "85bfe3d1-bf55-45a0-bc89-c25c0c292b2a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "cart_table": {
+      "name": "cart_table",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "compositePrimaryKeys": {
+        "cart_table_id": {
+          "name": "cart_table_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
     "cart_items_table": {
       "name": "cart_items_table",
       "columns": {
@@ -49,43 +86,6 @@
       "compositePrimaryKeys": {
         "cart_items_table_id": {
           "name": "cart_items_table_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
-      "uniqueConstraints": {}
-    },
-    "carts_table": {
-      "name": "carts_table",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "bigint",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "bigint",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
-        }
-      },
-      "indexes": {},
-      "compositePrimaryKeys": {
-        "carts_table_id": {
-          "name": "carts_table_id",
           "columns": [
             "id"
           ]
@@ -166,6 +166,14 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 1
         },
         "mint_company": {
           "name": "mint_company",

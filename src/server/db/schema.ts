@@ -31,6 +31,7 @@ export const items = singlestoreTable("items_table", {
   category: varchar("category", { length: 30 }).notNull(),
   condition: varchar("condition", { length: 30 }),
   usedConditionDescription: text("used_condition_description"),
+  quantity: int("quantity", { unsigned: true }).notNull().default(1),
   mintCompany: varchar("mint_company", { length: 10 }),
   mintGrade: varchar("mint_grade", { length: 20 }),
   imageUrl: longtext("image_url"),
@@ -38,9 +39,9 @@ export const items = singlestoreTable("items_table", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const cart = singlestoreTable("carts_table", {
+export const cart = singlestoreTable("cart_table", {
   id: bigint("id", { mode: "bigint" }).primaryKey().autoincrement(),
-  userId: bigint("user_id", { mode: "bigint" }).notNull().unique(),
+  userId: bigint("user_id", { mode: "bigint" }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

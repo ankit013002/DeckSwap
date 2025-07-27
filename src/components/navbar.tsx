@@ -48,7 +48,7 @@ export default function Navbar() {
         <ul className="hidden space-x-6 md:flex">
           {[
             ["Cards", "/mainpage?itemType=card"],
-            ["Accessories", "/accessories"],
+            ["Accessories", "/mainpage?itemType=accessories"],
             ["Trade", "/trade"],
             ["Sell", "/sell"],
           ].map(([label, href]) => (

@@ -33,6 +33,7 @@ export async function POST(request: Request) {
       mintGrade,
       condition,
       usedConditionDescription,
+      quantity,
       imageUrl,
     } = (await request.json()) as {
       title: string;
@@ -45,6 +46,7 @@ export async function POST(request: Request) {
       mintGrade: string;
       condition: string;
       usedConditionDescription: string;
+      quantity: number;
       imageUrl: string;
     };
 
@@ -60,6 +62,7 @@ export async function POST(request: Request) {
       mintGrade,
       condition,
       usedConditionDescription,
+      quantity,
       imageUrl,
     });
     return NextResponse.json({ success: true });

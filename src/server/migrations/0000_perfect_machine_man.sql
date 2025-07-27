@@ -1,3 +1,10 @@
+CREATE TABLE `cart_table` (
+	`id` bigint AUTO_INCREMENT NOT NULL,
+	`user_id` bigint NOT NULL,
+	`created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `cart_table_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
 CREATE TABLE `cart_items_table` (
 	`id` bigint AUTO_INCREMENT NOT NULL,
 	`cart_id` bigint NOT NULL,
@@ -5,13 +12,6 @@ CREATE TABLE `cart_items_table` (
 	`quantity` int NOT NULL DEFAULT 1,
 	`added_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT `cart_items_table_id` PRIMARY KEY(`id`)
-);
---> statement-breakpoint
-CREATE TABLE `carts_table` (
-	`id` bigint AUTO_INCREMENT NOT NULL,
-	`user_id` bigint NOT NULL,
-	`created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	CONSTRAINT `carts_table_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
 CREATE TABLE `items_table` (
@@ -25,6 +25,7 @@ CREATE TABLE `items_table` (
 	`category` varchar(30) NOT NULL,
 	`condition` varchar(30),
 	`used_condition_description` text,
+	`quantity` int unsigned NOT NULL DEFAULT 1,
 	`mint_company` varchar(10),
 	`mint_grade` varchar(20),
 	`image_url` longtext,

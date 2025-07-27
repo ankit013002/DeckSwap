@@ -36,6 +36,7 @@ export default function CreatePostingPage() {
     mintGrade: "",
     condition: "",
     usedConditionDescription: "",
+    quantity: 1,
     imageUrl: "",
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -301,6 +302,7 @@ export default function CreatePostingPage() {
                 </SelectContent>
               </Select>
             </div>
+
             {form.condition === "used" && (
               <div>
                 <Label htmlFor="usedConditionDescription">Description</Label>
@@ -315,6 +317,17 @@ export default function CreatePostingPage() {
                 />
               </div>
             )}
+            <div>
+              <Label htmlFor="quantity">Quantity</Label>
+              <Input
+                id="quantity"
+                name="quantity"
+                value={form.quantity}
+                onChange={handleChange}
+                placeholder="1"
+                required
+              />
+            </div>
             <div>
               <Label htmlFor="imageUrl">Image URL</Label>
               {image && (

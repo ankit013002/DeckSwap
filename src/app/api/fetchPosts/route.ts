@@ -70,23 +70,43 @@ export async function GET(request: Request) {
             sql`${items.title} LIKE ${`%${query}%`} AND ${items.userId} <> ${currUser.id}`,
           );
       } else {
-        rawData = await db
-          .select({
-            id: items.id,
-            userId: items.userId,
-            title: items.title,
-            price: items.price,
-            description: items.description,
-            category: items.category,
-            condition: items.condition,
-            imageUrl: items.imageUrl,
-            soldBy: users.name,
-          })
-          .from(items)
-          .leftJoin(users, eq(items.userId, users.id))
-          .where(
-            sql`${items.category} LIKE ${`%${itemType}%`} AND ${items.userId} <> ${currUser.id}`,
-          );
+        if (itemType === "accessories") {
+          rawData = await db
+            .select({
+              id: items.id,
+              userId: items.userId,
+              title: items.title,
+              price: items.price,
+              description: items.description,
+              category: items.category,
+              condition: items.condition,
+              imageUrl: items.imageUrl,
+              soldBy: users.name,
+            })
+            .from(items)
+            .leftJoin(users, eq(items.userId, users.id))
+            .where(
+              sql`${items.category} <> "Card" AND ${items.userId} <> ${currUser.id}`,
+            );
+        } else {
+          rawData = await db
+            .select({
+              id: items.id,
+              userId: items.userId,
+              title: items.title,
+              price: items.price,
+              description: items.description,
+              category: items.category,
+              condition: items.condition,
+              imageUrl: items.imageUrl,
+              soldBy: users.name,
+            })
+            .from(items)
+            .leftJoin(users, eq(items.userId, users.id))
+            .where(
+              sql`${items.category} LIKE ${`%${itemType}%`} AND ${items.userId} <> ${currUser.id}`,
+            );
+        }
       }
 
       const data = await Promise.all(
