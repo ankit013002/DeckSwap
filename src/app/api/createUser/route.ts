@@ -28,11 +28,8 @@ export async function POST(req: Request) {
     .where(eq(users.clerkUserId, userId));
 
   if (potentialUser.length > 0) {
-    console.log("FOUND, Potential User:", potentialUser);
     return NextResponse.json({ success: true });
   }
-
-  console.log(`clerkID: ${userId} and name: ${name} and email: ${email}`);
 
   await db
     .insert(users)

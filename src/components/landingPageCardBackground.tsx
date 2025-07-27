@@ -41,14 +41,12 @@ export function LandingPageCardBackground() {
           shadow-camera-right={2}
         />
 
-        {/* 🌟 Card */}
         <Suspense fallback={null}>
           <Float speed={5} floatIntensity={0.5}>
             <CharizardCard />
           </Float>
         </Suspense>
 
-        {/* 🕶️ Shadow under the card */}
         <ContactShadows
           position={[0, -0.8, 0]}
           opacity={0.5}
@@ -57,7 +55,6 @@ export function LandingPageCardBackground() {
           far={4.5}
         />
 
-        {/* ✨ Bloom effect */}
         <EffectComposer>
           <Bloom
             luminanceThreshold={0.4}
