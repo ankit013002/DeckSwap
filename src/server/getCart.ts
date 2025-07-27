@@ -24,7 +24,7 @@ export async function GetCart() {
       return null;
     }
   } else {
-    const id = userCart[0].id;
+    const id = userCart[0]?.id;
     return id;
   }
 }
