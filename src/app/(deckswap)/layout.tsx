@@ -17,7 +17,7 @@ export default function RootLayout({
     <ClerkProvider>
       <>
         <div className="mb-10">
-          <Navbar cartCount={3} />
+          <Navbar />
         </div>
         <main>{children}</main>
         <footer className="border-t border-white/10 bg-gradient-to-b from-indigo-900 to-purple-900 py-4">

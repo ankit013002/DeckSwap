@@ -12,18 +12,20 @@ import {
   UserButton,
   useUser,
 } from "@clerk/nextjs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import type { FetchCartCount } from "~/app/api/fetchCartCount/route";
 
-interface NavbarProps {
-  cartCount?: number;
-}
-
-export default function Navbar({ cartCount = 0 }: NavbarProps) {
+export default function Navbar() {
   const { user, isLoaded } = useUser();
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     if (isLoaded && user) {
       fetch("/api/createUser", { method: "POST" }).catch(console.error);
+      fetch(`/api/fetchCartCount`, { method: "GET" })
+        .then((response) => response.json())
+        .then((data: FetchCartCount) => setCartCount(data.count ?? 0))
+        .catch(console.error);
     }
   }, [isLoaded, user]);
 

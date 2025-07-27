@@ -48,9 +48,14 @@ export default function HomePage() {
         .catch((error) => console.error(`Error fetching data: ${error}`))
         .finally(() => setIsLoading(false));
     }
-  }, []);
+  }, [itemType, query]);
 
-  if (isLoading) return <p>Loading…</p>;
+  if (isLoading)
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-8 text-white">
+        Loading…
+      </div>
+    );
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-8 text-white">
